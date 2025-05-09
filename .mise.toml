@@ -1,0 +1,12 @@
+[env]
+
+  [env._]
+
+    [env._.python]
+
+      [env._.python.venv]
+        create = true
+        path   = ".venv"
+
+[tools]
+pnpm = "10.10.0"
