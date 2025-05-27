@@ -11,10 +11,13 @@ RUN set -eux && \
     wget -O go.tar.gz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" && \
     tar -C /usr/local -xzf go.tar.gz && \
     rm go.tar.gz && \
+    rm /root/.wget-hsts && \
     mkdir -p /go/src /go/bin && \
     chmod -R 777 /go && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/log/apt/* && \
+    rm -rf /var/log/dpkg.log
 
 # Set environment variables
 ENV GOPATH=/go
