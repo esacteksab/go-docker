@@ -14,15 +14,15 @@ This repository contains a Dockerfile and GitHub Actions workflow that creates a
 ## Container Details
 
 - **Base Image:** Ubuntu 24.04
-- **Go Version:** Configurable via repository variables `GO_VERSION=1.24.3`
+- **Go Version:** Configurable via repository variables `GO_VERSION=1.24.4`
 - **Registry:** [Docker Hub - esacteksab/go](https://hub.docker.com/r/esacteksab/go)
 - **Build Schedule:** Every Friday at 9:00 AM Central Time (US/Chicago)
 
 ## Available Tags
 
 - `latest` - The most recent build
-- `1.24.3` (or current Go version) - Tagged with the specific Go version
-- `1.24.3-YYYY-MM-DD` - Version with build date for historical reference
+- `1.24.4` (or current Go version) - Tagged with the specific Go version
+- `1.24.4-YYYY-MM-DD` - Version with build date for historical reference
 
 ## Features
 
