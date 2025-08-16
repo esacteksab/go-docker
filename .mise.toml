@@ -9,4 +9,5 @@
         path   = ".venv"
 
 [tools]
-pnpm = "10.11.0"
+pnpm = "10.14.0"
+uv = "latest"
