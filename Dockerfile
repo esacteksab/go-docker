@@ -29,6 +29,16 @@ WORKDIR /go
 
 FROM ubuntu:24.04@sha256:7c06e91f61fa88c08cc74f7e1b7c69ae24910d745357e0dfe1d2c0322aaf20f9
 
+
+RUN set -eux && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates=20240203 && \
+    apt-get clean && apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/log/apt/* && \
+    rm -rf /var/log/dpkg.log
+
 # Set environment variables
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
