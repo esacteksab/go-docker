@@ -5,6 +5,7 @@ updates:
     directory: "/"
     groups:
       python-minor-and-patch:
+        dependency-type: "development"
         update-types:
           - "minor"
           - "patch"
@@ -16,6 +17,9 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
+    groups:
+      gha:
+        dependency-type: "development"
     schedule:
       interval: "weekly"
       day: "friday"
@@ -27,4 +31,18 @@ updates:
     schedule:
       interval: "daily"
       time: "13:00"
+      timezone: "America/Chicago"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    groups:
+      python-minor-and-patch:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "19:00"
       timezone: "America/Chicago"
