@@ -18,8 +18,11 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     groups:
-      gha:
+      github-actions:
         dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
     schedule:
       interval: "weekly"
       day: "friday"
@@ -36,7 +39,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     groups:
-      python-minor-and-patch:
+      npm-minor-and-patch:
         dependency-type: "development"
         update-types:
           - "minor"
