@@ -5,7 +5,6 @@ updates:
     directory: "/"
     groups:
       python-minor-and-patch:
-        dependency-type: "development"
         update-types:
           - "minor"
           - "patch"
@@ -21,7 +20,6 @@ updates:
     directory: "/"
     groups:
       github-actions:
-        dependency-type: "development"
         update-types:
           - "minor"
           - "patch"
@@ -46,7 +44,6 @@ updates:
     directory: "/"
     groups:
       npm-minor-and-patch:
-        dependency-type: "development"
         update-types:
           - "minor"
           - "patch"
