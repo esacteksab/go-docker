@@ -14,6 +14,8 @@ updates:
       day: "friday"
       time: "19:00"
       timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -28,6 +30,8 @@ updates:
       day: "friday"
       time: "19:00"
       timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "docker"
     directory: "/"
@@ -35,6 +39,8 @@ updates:
       interval: "daily"
       time: "13:00"
       timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -49,3 +55,5 @@ updates:
       day: "friday"
       time: "19:00"
       timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
