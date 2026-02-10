@@ -15,9 +15,12 @@ example
 .python-version
 .tp.toml
 .typos.toml
-dev-requirements.txt
+*requirements.txt
 gh-tp
 README.md
 gh-actlock
 gh-install
 *.exe
+.github
+node_modules
+.prettier*
