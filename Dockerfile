@@ -1,6 +1,6 @@
 FROM ubuntu:24.04@sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b AS base
 
-ARG GO_VERSION=1.25.7
+ARG GO_VERSION=1.25.8
 
 # Install dependencies, download Go, and set it up in one layer
 RUN set -eux && \
