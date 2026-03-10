@@ -3,7 +3,7 @@
 A lightweight Docker container for Go development based on Ubuntu 24.04.
 
 ```bash
-esacteksab/go                <none>                       3d6df1c54b86   3 hours ago      335MB
+esacteksab/go                1.25.8                       f1f694493a08   2 minutes ago    445MB
 golang                       1.24.3-bookworm              f254902cf370   2 days ago       853MB
 ```
 
@@ -14,15 +14,15 @@ This repository contains a Dockerfile and GitHub Actions workflow that creates a
 ## Container Details
 
 - **Base Image:** Ubuntu 24.04
-- **Go Version:** Configurable via repository variables `GO_VERSION=1.25.6`
+- **Go Version:** Configurable via repository variables `GO_VERSION=1.25.8`
 - **Registry:** [Docker Hub - esacteksab/go](https://hub.docker.com/r/esacteksab/go)
 - **Build Schedule:** Every Friday at 9:00 AM Central Time (US/Chicago)
 
 ## Available Tags
 
 - `latest` - The most recent build
-- `1.25.6` (or current Go version) - Tagged with the specific Go version
-- `1.25.6-YYYY-MM-DD` - Version with build date for historical reference
+- `1.25.8` (or current Go version) - Tagged with the specific Go version
+- `1.25.8-YYYY-MM-DD` - Version with build date for historical reference
 
 ## Features
 
