@@ -12,8 +12,38 @@ permissions:
     contents: read
 
 jobs:
-  build-and-push:
+  get-versions:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.versions.outputs.matrix }}
+      latest: ${{ steps.latest.outputs.version }}
+    steps:
+      - name: Get Go versions
+        id: versions
+        run: |
+          VERSIONS=$(
+            curl -s 'https://go.dev/dl/?mode=json' \
+              | jq -r '
+                [.[] | select(.stable) | .version]
+                | group_by(split(".")[0:2] | join("."))
+                | map(max_by(ltrimstr("go") | split(".") | map(tonumber)))[]
+              ' | sed 's/go//'
+          )
+          VERSIONS_ARRAY=$(echo "$VERSIONS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "matrix={\"go-version\":$VERSIONS_ARRAY}" >> $GITHUB_OUTPUT
+
+      - name: Get latest version
+        id: latest
+        run: |
+          matrix='${{ steps.versions.outputs.matrix }}'
+          latest=$(echo "$matrix" | jq -r '.["go-version"][-1]')
+          echo "version=$latest" >> $GITHUB_OUTPUT
+
+  build-and-push:
+    needs: get-versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-versions.outputs.matrix) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
@@ -34,16 +64,24 @@ jobs:
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
+      - name: Set tags
+        id: tags
+        run: |
+          tags="esacteksab/go:${{ matrix.go-version }}\nesacteksab/go:${{ matrix.go-version }}-${{ steps.date.outputs.date }}"
+          if [ "${{ matrix.go-version }}" = "${{ needs.get-versions.outputs.latest }}" ]; then
+            tags="${tags}\nesacteksab/go:latest"
+          fi
+          echo "tags<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$tags" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Build and push Docker image
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 #v6.18.0
         with:
           context: .
           push: true
-          tags: |
-            esacteksab/go:latest
-            esacteksab/go:${{ vars.GO_VERSION }}
-            esacteksab/go:${{ vars.GO_VERSION }}-${{ steps.date.outputs.date }}
+          tags: ${{ steps.tags.outputs.tags }}
           build-args: |
-            GO_VERSION=${{ vars.GO_VERSION }}
+            GO_VERSION=${{ matrix.go-version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
