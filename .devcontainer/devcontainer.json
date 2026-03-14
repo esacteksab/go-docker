@@ -1,6 +1,6 @@
 {
   "name": "go-docker (shared dev-container)",
-  "image": "docker.io/esacteksab/dev-container:2026-03-14-14-54",
+  "image": "docker.io/esacteksab/dev-container:2026-03-14-15-02",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "postCreateCommand": "pre-commit install --install-hooks",
   "customizations": {
