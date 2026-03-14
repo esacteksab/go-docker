@@ -29,6 +29,8 @@ WORKDIR /go
 
 FROM ubuntu:24.04@sha256:d1e2e92c075e5ca139d51a140fff46f84315c0fdce203eab2807c7e495eff4f9
 
+ARG GO_VERSION
+LABEL org.opencontainers.image.version="${GO_VERSION}"
 
 RUN set -eux && \
     apt-get update && \
@@ -43,6 +45,7 @@ RUN set -eux && \
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 ENV CGO_ENABLED=0
+ENV GO_VERSION=${GO_VERSION}
 
 COPY --from=base /usr/local/go /usr/local/go
 

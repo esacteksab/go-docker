@@ -20,16 +20,23 @@ jobs:
     steps:
       - name: Get Go versions
         id: versions
+        env:
+          GO_VERSION: ${{ vars.GO_VERSION }}
         run: |
-          VERSIONS=$(
-            curl -s 'https://go.dev/dl/?mode=json' \
-              | jq -r '
-                [.[] | select(.stable) | .version]
-                | group_by(split(".")[0:2] | join("."))
-                | map(max_by(ltrimstr("go") | split(".") | map(tonumber)))[]
-              ' | sed 's/go//'
-          )
-          VERSIONS_ARRAY=$(echo "$VERSIONS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          if [ -n "$GO_VERSION" ]; then
+            # Repository variable overrides the API — build only that version
+            VERSIONS_ARRAY=$(jq -cn --arg v "$GO_VERSION" '[$v]')
+          else
+            VERSIONS=$(
+              curl -s 'https://go.dev/dl/?mode=json' \
+                | jq -r '
+                  [.[] | select(.stable) | .version]
+                  | group_by(split(".")[0:2] | join("."))
+                  | map(max_by(ltrimstr("go") | split(".") | map(tonumber)))[]
+                ' | sed 's/go//'
+            )
+            VERSIONS_ARRAY=$(echo "$VERSIONS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          fi
           echo "matrix={\"go-version\":$VERSIONS_ARRAY}" >> $GITHUB_OUTPUT
 
       - name: Get latest version
