@@ -1,31 +1,6 @@
-FROM ubuntu:24.04@sha256:d1e2e92c075e5ca139d51a140fff46f84315c0fdce203eab2807c7e495eff4f9 AS base
-
 ARG GO_VERSION=1.25.8
-
-# Install dependencies, download Go, and set it up in one layer
-RUN set -eux && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ca-certificates=20240203 \
-        wget=1.21.4-1ubuntu4.1 && \
-    wget -O go.tar.gz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" && \
-    tar -C /usr/local -xzf go.tar.gz && \
-    rm go.tar.gz && \
-    rm /root/.wget-hsts && \
-    mkdir -p /go/src /go/bin && \
-    chmod -R 750 /go && \
-    apt-get clean && apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/log/apt/* && \
-    rm -rf /var/log/dpkg.log
-
-# Set environment variables
-ENV GOPATH=/go
-ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-ENV CGO_ENABLED=0
-
-# Set the working directory
-WORKDIR /go
+ARG GO_IMAGE_DIGEST=sha256:7af46e70d2017aef0b4ce2422afbcf39af0511a61993103e948b61011233ec42
+FROM golang:${GO_VERSION}-bookworm@${GO_IMAGE_DIGEST} AS go-dist
 
 FROM ubuntu:24.04@sha256:d1e2e92c075e5ca139d51a140fff46f84315c0fdce203eab2807c7e495eff4f9
 
@@ -47,7 +22,9 @@ ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 ENV CGO_ENABLED=0
 ENV GO_VERSION=${GO_VERSION}
 
-COPY --from=base /usr/local/go /usr/local/go
+COPY --from=go-dist /usr/local/go /usr/local/go
+
+RUN mkdir -p /go/src /go/bin && chmod -R 750 /go
 
 # Set the working directory
 WORKDIR /go

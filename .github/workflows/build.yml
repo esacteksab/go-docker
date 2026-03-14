@@ -21,7 +21,7 @@ jobs:
       - name: Get Go versions
         id: versions
         env:
-          GO_VERSION: ${{ vars.GO_VERSION }}
+          GO_VERSION: ${{ vars.GO_VERSION || '' }}
         run: |
           if [ -n "$GO_VERSION" ]; then
             # Repository variable overrides the API — build only that version
@@ -60,6 +60,16 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd #v4.0.0
 
+      - name: Resolve Go image digest
+        id: go-image
+        run: |
+          digest=$(docker buildx imagetools inspect "golang:${{ matrix.go-version }}-bookworm" | awk '/^Digest:[[:space:]]/ {print $2; exit}')
+          if [ -z "$digest" ]; then
+            echo "Failed to resolve digest for golang:${{ matrix.go-version }}-bookworm" >&2
+            exit 1
+          fi
+          echo "digest=$digest" >> $GITHUB_OUTPUT
+
       - name: Log in to Docker Hub
         uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 #v4.0.0
         with:
@@ -90,5 +100,6 @@ jobs:
           tags: ${{ steps.tags.outputs.tags }}
           build-args: |
             GO_VERSION=${{ matrix.go-version }}
+            GO_IMAGE_DIGEST=${{ steps.go-image.outputs.digest }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

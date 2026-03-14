@@ -1,42 +1,62 @@
+---
 changelog:
   exclude:
     labels:
       - ignore-changelog
 
   categories:
-    - title: ":warning: Update considerations and deprecations"
+    - title: ":warning: Breaking changes and deprecations"
       labels:
         - "type: breaking"
         - "type: deprecation"
         - "type: regression"
         - "type: revert"
 
-    - title: ":rocket: New features and improvements"
+    - title: ":whale: Image and runtime updates"
       labels:
         - "type: release"
         - "type: feat"
-        - "type: enhancement"
-        - "type: refactor"
-        - "type: perf"
-
-    - title: ":lady_beetle: Bug fixes"
-      labels:
         - "type: fix"
+        - "type: perf"
+        - "type: enhancement"
+        - "enhancement"
+        - "bug"
 
-    - title: ":nail_care: Style, UI, UX"
+    - title: ":rocket: CI and build pipeline"
       labels:
-        - "type: style"
-
-    - title: ":book: Documentation"
-      labels:
-        - "type: docs"
-
-    - title: ":hammer: Build/Test Dependency Upgrades"
-      labels:
-        - "type: dependencies"
-        - "dependencies"
-        - "type: test"
         - "type: ci"
         - "type: build"
+        - "type: refactor"
+
+    - title: ":book: Documentation and tests"
+      labels:
+        - "type: docs"
+        - "type: test"
+        - "type: style"
+        - "documentation"
+
+    - title: ":tools: Development dependency updates"
+      labels:
+        - "github_actions"
+        - "javascript"
+        - "npm"
+        - "python"
+
+    - title: ":package: Container dependency updates"
+      labels:
+        - "dependencies"
+        - "docker"
+        - "go"
+
+    - title: ":broom: Chores and maintenance"
+      labels:
+        - "chore"
         - "type: chore"
         - "type: task"
+
+    - title: ":grey_question: Other labeled changes"
+      labels:
+        - "question"
+        - "invalid"
+        - "duplicate"
+        - "wontfix"
