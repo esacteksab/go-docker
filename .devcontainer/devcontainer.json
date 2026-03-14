@@ -1,0 +1,18 @@
+{
+  "name": "go-docker (shared dev-container)",
+  "image": "docker.io/esacteksab/dev-container:2026-03-14-14-54",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "postCreateCommand": "pre-commit install --install-hooks",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      },
+      "extensions": [
+        "ms-vscode-remote.remote-containers",
+        "golang.go",
+        "ms-python.python"
+      ]
+    }
+  }
+}
