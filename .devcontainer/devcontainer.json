@@ -1,7 +1,12 @@
 {
   "name": "go-docker (shared dev-container)",
-  "image": "docker.io/esacteksab/dev-container:2026-03-14-15-02",
+  "image": "esacteksab/dev-container:2026-03-14-18-56",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "mounts": [
+    "source=go-docker-gh-config,target=/root/.config/gh,type=volume",
+    "source=go-docker-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=go-docker-zshhistory,target=/commandhistory,type=volume"
+  ],
   "postCreateCommand": "pre-commit install --install-hooks",
   "customizations": {
     "vscode": {
@@ -11,7 +16,16 @@
       "extensions": [
         "ms-vscode-remote.remote-containers",
         "golang.go",
-        "ms-python.python"
+        "ms-python.python",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "EditorConfig.EditorConfig",
+        "casualjim.gotemplate",
+        "tamasfe.even-better-toml",
+        "bradlc.vscode-tailwindcss",
+        "redhat.vscode-yaml",
+        "timonwong.shellcheck",
+        "emeraldwalk.RunOnSave"
       ]
     }
   }
