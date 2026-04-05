@@ -84,7 +84,8 @@ jobs:
       - name: Set tags
         id: tags
         run: |
-          tags="esacteksab/go:${{ matrix.go-version }}\nesacteksab/go:${{ matrix.go-version }}-${{ steps.date.outputs.date }}"
+          stable_line=$(echo "${{ matrix.go-version }}" | cut -d. -f1,2)
+          tags="esacteksab/go:${{ matrix.go-version }}\nesacteksab/go:${stable_line}\nesacteksab/go:${{ matrix.go-version }}-${{ steps.date.outputs.date }}"
           if [ "${{ matrix.go-version }}" = "${{ needs.get-versions.outputs.latest }}" ]; then
             tags="${tags}\nesacteksab/go:latest"
           fi
