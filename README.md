@@ -10,6 +10,33 @@ This repository builds and publishes one or more Go images on a schedule using G
 - Runtime base: Ubuntu 24.04 (digest pinned)
 - Build schedule: Every Friday at 9:00 AM Central Time (US/Chicago)
 
+## Local Development (VS Code Dev Container)
+
+Local development is standardized through a shared dev-container instead of per-repo bootstrap files.
+
+- Dev container config: [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json)
+- Shared environment image: `docker.io/esacteksab/dev-container:2026-03-13-20-04@sha256:ff0997d094d0ffadfc73a278ac6b2316a15f0a6025fbfc067c2348929071ded3`
+
+### Getting started
+
+1. Open this repository in VS Code.
+1. Run the command: `Dev Containers: Reopen in Container`.
+1. Wait for the container build to complete.
+1. Start working with the preinstalled toolchain inside the container.
+
+The container post-create step installs pre-commit hooks automatically.
+
+### First-pass boilerplate removed from this repo
+
+The following local bootstrap files were intentionally removed in favor of the shared dev-container:
+
+- `package.json`
+- `pnpm-lock.yaml`
+- `requirements.txt`
+- `.mise.toml`
+
+Project policy/config files such as `.pre-commit-config.yaml`, `.prettierrc`, `.prettierignore`, and GitHub workflow files remain in this repository.
+
 ## How Versions Are Selected
 
 The workflow resolves the build matrix in one of two ways:

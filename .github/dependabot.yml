@@ -1,25 +1,6 @@
 ---
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
-    labels:
-      - "python"
-    commit-message:
-      prefix: "chore(dev-deps)"
-    groups:
-      python-minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "19:00"
-      timezone: "America/Chicago"
-    cooldown:
-      default-days: 7
-
   - package-ecosystem: "github-actions"
     directory: "/"
     labels:
@@ -49,25 +30,6 @@ updates:
     schedule:
       interval: "daily"
       time: "13:00"
-      timezone: "America/Chicago"
-    cooldown:
-      default-days: 7
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    labels:
-      - "javascript"
-    commit-message:
-      prefix: "chore(dev-deps)"
-    groups:
-      npm-minor-and-patch:
-        update-types:
-          - "minor"
-          - "patch"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "19:00"
       timezone: "America/Chicago"
     cooldown:
       default-days: 7
