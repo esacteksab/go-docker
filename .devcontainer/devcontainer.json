@@ -1,17 +1,24 @@
 {
   "name": "go-docker (shared dev-container)",
-  "image": "esacteksab/dev-container:2026-03-14-18-56",
+  "image": "esacteksab/dev-container:latest",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
   "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,readonly",
     "source=go-docker-gh-config,target=/root/.config/gh,type=volume",
+    "source=${localEnv:HOME}/.config/gh/hosts.yml,target=/root/.config/gh/hosts.yml,type=bind,readonly",
     "source=go-docker-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
     "source=go-docker-zshhistory,target=/commandhistory,type=volume"
   ],
-  "postCreateCommand": "pre-commit install --install-hooks",
+  "postCreateCommand": "python3 -m venv --clear .venv && .venv/bin/python -m pip install -r requirements.txt && .venv/bin/python -m pre_commit install --install-hooks && gh extension install esacteksab/gh-actlock || true && gh extension install esacteksab/gh-tp || true && gh extension install seachicken/gh-poi || true",
+
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python"
       },
       "extensions": [
         "ms-vscode-remote.remote-containers",
