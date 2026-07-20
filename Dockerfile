@@ -2,7 +2,7 @@ ARG GO_VERSION=1.25.8
 ARG GO_IMAGE_DIGEST=sha256:7af46e70d2017aef0b4ce2422afbcf39af0511a61993103e948b61011233ec42
 FROM golang:${GO_VERSION}-bookworm@${GO_IMAGE_DIGEST} AS go-dist
 
-FROM ubuntu:24.04@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
+FROM ubuntu:24.04@sha256:4fbb8e6a8395de5a7550b33509421a2bafbc0aab6c06ba2cef9ebffbc7092d90
 
 ARG GO_VERSION
 LABEL org.opencontainers.image.version="${GO_VERSION}"
